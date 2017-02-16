@@ -1,0 +1,21 @@
+#class path
+.classpath
+
+# gradle files
+.gradle/
+
+# project
+.project
+
+#settings
+.settings/
+
+bin/
+
+build/
+
+# idea files
+.idea/
+*.iml
+*.ipr
+*.iws
