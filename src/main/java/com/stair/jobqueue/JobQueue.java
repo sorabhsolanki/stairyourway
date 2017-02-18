@@ -1,4 +1,6 @@
-package com.stair.ds;
+package com.stair.jobqueue;
+
+import com.stair.dto.WorkoutDto;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -11,7 +13,7 @@ It is a circular Queue which support push and pop feature guarded by lock.
 public class JobQueue {
 
     private static final JobQueue INSTANCE = new JobQueue(100);
-    private final Object[] array;
+    private final WorkoutDto[] array;
     private final int size;
     private int getPtr = 0;
     private int putPtr = 0;
@@ -21,18 +23,16 @@ public class JobQueue {
     private final Condition getCondition = lock.newCondition();
     private final Condition putCondition = lock.newCondition();
 
-
-
     private JobQueue(int size){
         this.size = size;
-        array = new Object[size];
+        array = new WorkoutDto[size];
     }
 
-    private static JobQueue getInstance(){
+    public static JobQueue getInstance(){
         return INSTANCE;
     }
 
-    public boolean push(Object obj) throws InterruptedException {
+    public boolean push(WorkoutDto obj) throws InterruptedException {
         lock.lock();
         try {
             while (count == size)
@@ -49,9 +49,9 @@ public class JobQueue {
         return true;
     }
 
-    public Object pop() throws InterruptedException {
+    public WorkoutDto pop() throws InterruptedException {
         lock.lock();
-        Object result = null;
+        WorkoutDto result = null;
         try {
             while (count == 0)
                 getCondition.await();
