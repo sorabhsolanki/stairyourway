@@ -2,9 +2,11 @@ package com.stair;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stair.persistent.WorkoutRepository;
+import com.stair.persistent.RepositoryFeederJob;
+import com.stair.persistent.repository.WorkoutRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,6 +22,9 @@ public class StairYourWay {
 
     private static final Logger LOG = LoggerFactory.getLogger(StairYourWay.class);
 
+    @Autowired
+    private WorkoutRepository workoutRepository;
+
     @Bean
     public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
         MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();
@@ -29,12 +34,15 @@ public class StairYourWay {
         return jsonConverter;
     }
 
-    private static  void initializeWorkoutRepository(){
-        new Thread(new WorkoutRepository()).start();
+    @Bean
+    public void repositoryFeederJob(){
+        RepositoryFeederJob job = new RepositoryFeederJob();
+        job.setWorkoutRepository(workoutRepository);
+        new Thread(new RepositoryFeederJob()).start();
     }
+
     public static void main(String[] args) {
         LOG.info("Booting up....");
-        initializeWorkoutRepository();
         ApplicationContext applicationContext = SpringApplication.run(StairYourWay.class, args);
     }
 

@@ -4,44 +4,40 @@ import javax.validation.constraints.NotNull;
 
 public class WorkoutDto {
 
-
     @NotNull
     private String email;
-    @NotNull
-    private String numberOfFloors;
-    @NotNull
-    private String stairDirection;
 
+    private String floorUpDirection;
+
+    private String floorDownDirection;
 
     public WorkoutDto() {
     }
 
-    public WorkoutDto(String email,
-                      String numberOfFloors,
-                      String stairDirection) {
+    public WorkoutDto(String email, String floorUpDirection, String floorDownDirection) {
         this.email = email;
-        this.numberOfFloors = numberOfFloors;
-        this.stairDirection = stairDirection;
+        this.floorUpDirection = floorUpDirection;
+        this.floorDownDirection = floorDownDirection;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getNumberOfFloors() {
-        return numberOfFloors;
+    public String getFloorUpDirection() {
+        return floorUpDirection;
     }
 
-    public String getStairDirection() {
-        return stairDirection;
+    public String getFloorDownDirection() {
+        return floorDownDirection;
     }
 
     @Override
     public String toString() {
         return "WorkoutDto{" +
                 "email='" + email + '\'' +
-                ", numberOfFloors='" + numberOfFloors + '\'' +
-                ", stairDirection='" + stairDirection + '\'' +
+                ", floorUpDirection='" + floorUpDirection + '\'' +
+                ", floorDownDirection='" + floorDownDirection + '\'' +
                 '}';
     }
 }
