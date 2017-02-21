@@ -3,7 +3,7 @@ package com.stair.persistent.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "common_grammar")
+@Document(collection = "Workout")
 public class Workout {
 
     @Id

@@ -3,6 +3,7 @@ package com.stair;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stair.persistent.RepositoryFeederJob;
+import com.stair.persistent.repository.LoginRepository;
 import com.stair.persistent.repository.WorkoutRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +14,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 @SpringBootApplication
 @EnableAutoConfiguration
+@EnableMongoRepositories
 @ComponentScan()
 public class StairYourWay {
 
@@ -35,10 +38,11 @@ public class StairYourWay {
     }
 
     @Bean
-    public void repositoryFeederJob(){
+    public RepositoryFeederJob repositoryFeederJob(){
         RepositoryFeederJob job = new RepositoryFeederJob();
         job.setWorkoutRepository(workoutRepository);
         new Thread(new RepositoryFeederJob()).start();
+        return job;
     }
 
     public static void main(String[] args) {
