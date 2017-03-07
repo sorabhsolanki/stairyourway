@@ -20,10 +20,12 @@ public class RepositoryFeederJob implements Runnable {
     public void run() {
         while (true){
             try {
+
+                //check if new data is in queue
                 WorkoutDto workoutDto = queue.pop();
                 LOG.info("Poping new job from queue "+workoutDto.toString());
 
-                // insert the popped data into DB
+
                 Workout workout = new Workout(workoutDto.getEmail(), workoutDto.getFloorUpDirection(),
                         workoutDto.getFloorDownDirection());
 
