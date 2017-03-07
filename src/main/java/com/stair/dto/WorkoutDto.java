@@ -7,14 +7,14 @@ public class WorkoutDto {
     @NotBlank
     private String email;
 
-    private String floorUpDirection;
+    private int floorUpDirection;
 
-    private String floorDownDirection;
+    private int floorDownDirection;
 
     public WorkoutDto() {
     }
 
-    public WorkoutDto(String email, String floorUpDirection, String floorDownDirection) {
+    public WorkoutDto(String email, int floorUpDirection, int floorDownDirection) {
         this.email = email;
         this.floorUpDirection = floorUpDirection;
         this.floorDownDirection = floorDownDirection;
@@ -24,11 +24,11 @@ public class WorkoutDto {
         return email;
     }
 
-    public String getFloorUpDirection() {
+    public int getFloorUpDirection() {
         return floorUpDirection;
     }
 
-    public String getFloorDownDirection() {
+    public int getFloorDownDirection() {
         return floorDownDirection;
     }
 

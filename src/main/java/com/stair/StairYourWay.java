@@ -26,7 +26,7 @@ public class StairYourWay {
     private static final Logger LOG = LoggerFactory.getLogger(StairYourWay.class);
 
     @Autowired
-    private WorkoutRepository workoutRepository;
+    WorkoutRepository workoutRepository;
 
     @Bean
     public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
@@ -38,10 +38,9 @@ public class StairYourWay {
     }
 
     @Bean
-    public RepositoryFeederJob repositoryFeederJob(){
-        RepositoryFeederJob job = new RepositoryFeederJob();
-        job.setWorkoutRepository(workoutRepository);
-        new Thread(new RepositoryFeederJob()).start();
+    public RepositoryFeederJob repositoryFeederJob() {
+        RepositoryFeederJob job = new RepositoryFeederJob(workoutRepository);
+        new Thread(job).start();
         return job;
     }
 

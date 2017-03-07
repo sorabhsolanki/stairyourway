@@ -45,7 +45,7 @@ public class StairConnector {
         LOG.info("Request came for login");
         HttpSession session = loginHandler.authenticate(request, loginDto);
 
-        if(session == null)
+        if (session == null)
             return new ResponseEntity(HttpStatus.NOT_FOUND);
 
         HttpHeaders requestHeaders = new HttpHeaders();
@@ -57,15 +57,12 @@ public class StairConnector {
     @RequestMapping(value = "/workout", method = RequestMethod.POST)
     public ResponseEntity submitWorkout(HttpServletRequest request,
                                         @RequestBody @Valid WorkoutDto workoutDto) {
-        if(loginHandler.authorizeUser(request)){
-            workoutHandler.submitWorkout(workoutDto);
-            return new ResponseEntity("Workout submitted", HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity("Please login first", HttpStatus.BAD_REQUEST);
+        workoutHandler.submitWorkout(workoutDto);
+        return new ResponseEntity("Workout submitted", HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value = "/getTopLinks", method = RequestMethod.GET)
-    public ResponseEntity<List<CacheDto>> getTop10DailyWorkout(){
+    public ResponseEntity<List<CacheDto>> getTop10DailyWorkout() {
         List<CacheDto> cacheDtos = workoutHandler.extractTop10DailyWorkout();
         return new ResponseEntity(cacheDtos, HttpStatus.OK);
     }
