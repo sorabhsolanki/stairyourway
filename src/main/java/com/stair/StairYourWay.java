@@ -2,6 +2,8 @@ package com.stair;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.stair.cache.WorkoutCache;
+import com.stair.persistent.CacheFeederJob;
 import com.stair.persistent.RepositoryFeederJob;
 import com.stair.persistent.repository.LoginRepository;
 import com.stair.persistent.repository.WorkoutRepository;
@@ -17,6 +19,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 @SpringBootApplication
 @EnableAutoConfiguration
 @EnableMongoRepositories
@@ -27,6 +33,9 @@ public class StairYourWay {
 
     @Autowired
     WorkoutRepository workoutRepository;
+
+    @Autowired
+    WorkoutCache workoutCache;
 
     @Bean
     public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
@@ -44,10 +53,16 @@ public class StairYourWay {
         return job;
     }
 
+    @Bean
+    public CacheFeederJob cacheFeederJob() {
+        CacheFeederJob job = new CacheFeederJob(workoutRepository, workoutCache);
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        scheduledExecutorService.scheduleAtFixedRate(job, 0, 10, TimeUnit.SECONDS);
+        return job;
+    }
+
     public static void main(String[] args) {
         LOG.info("Booting up....");
         ApplicationContext applicationContext = SpringApplication.run(StairYourWay.class, args);
     }
-
-
 }

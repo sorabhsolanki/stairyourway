@@ -1,7 +1,10 @@
 package com.stair.cache;
 
 import com.stair.dto.cache.CacheDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import sun.rmi.runtime.Log;
 
 import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,17 +30,20 @@ then at the same time handler can not fetch top 10 daily workout.
 @Component
 public class WorkoutCache {
 
+    private static final Logger LOG = LoggerFactory.getLogger(WorkoutCache.class);
+
     private final int capacity = 10;
     private final ConcurrentMap<String, CacheDto> map = new ConcurrentHashMap<>();
     private final Heap heap = new Heap(capacity);
     private final ReentrantLock lock = new ReentrantLock();
 
     public void insert(CacheDto cacheDto){
+        LOG.info("taking lock");
         lock.lock();
         try{
+            LOG.info("After taking lock");
             //check whether the element present in the map
             if(map.containsKey(cacheDto.getEmail())){
-
                 //update the points
                 map.get(cacheDto.getEmail()).setTotalPoints(cacheDto.getTotalPoints());
                 // now check whether this element exist inside the heap
@@ -89,6 +95,7 @@ public class WorkoutCache {
         }
 
         public void insert(CacheDto cacheDto){
+            LOG.info("Current Size of heap : " + currentSize);
             if(currentSize == 0){
                 cacheDto.setIndex(currentSize);
                 cacheDtos[currentSize ++] = cacheDto;
@@ -115,7 +122,7 @@ public class WorkoutCache {
             }
         }
 
-        public void increaseKey(int index, CacheDto cacheDto){
+        public int increaseKey(int index, CacheDto cacheDto){
             // replace the dto at this index
             cacheDtos[index] = cacheDto;
 
@@ -126,6 +133,7 @@ public class WorkoutCache {
                 index = parent;
                 parent = parent(index);
             }
+            return index;
         }
 
         public CacheDto extract(){
@@ -143,7 +151,7 @@ public class WorkoutCache {
         }
 
         public CacheDto[] extractTop10(){
-            Arrays.sort(cacheDtos);
+            //Arrays.sort(cacheDtos);
             return cacheDtos;
         }
 
@@ -171,6 +179,9 @@ public class WorkoutCache {
             CacheDto temp = cacheDtos[first];
             cacheDtos[first] = cacheDtos[second];
             cacheDtos[second] = temp;
+
+            cacheDtos[first].setIndex(first);
+            cacheDtos[second].setIndex(second);
         }
 
         private int left(int index){

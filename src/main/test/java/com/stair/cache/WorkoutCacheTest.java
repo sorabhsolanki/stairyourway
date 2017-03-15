@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 
@@ -23,13 +24,13 @@ public class WorkoutCacheTest {
     @Before
     public void setup(){
         for(int i = 0; i < dtos.length; i++){
-            dtos[i] = new CacheDto(UUID.randomUUID().toString(), null, null, null, i);
+            dtos[i] = new CacheDto(UUID.randomUUID().toString(), null, i, i, i);
         }
     }
 
     @Test
     public void insertAndExtractTest(){
-        for(int i = 0; i < dtos.length; i++){
+        for(int i = 0; i < 1; i++){
             objUnderTest.insert(dtos[i]);
         }
 
@@ -37,9 +38,12 @@ public class WorkoutCacheTest {
             System.out.println(objUnderTest.extractMax().getTotalPoints());
         }*/
 
-        for (CacheDto cacheDto : objUnderTest.extractTop10()) {
+        /*for (CacheDto cacheDto : objUnderTest.extractTop10()) {
             System.out.println(cacheDto.getTotalPoints());
-        }
+        }*/
+
+        CacheDto[]  cacheDtos = objUnderTest.extractTop10();
+        Arrays.sort(cacheDtos);
     }
 
 

@@ -1,5 +1,7 @@
 package com.stair.dto.cache;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class CacheDto implements Comparable<CacheDto>{
 
     // will act as unique key in cache
@@ -7,16 +9,17 @@ public class CacheDto implements Comparable<CacheDto>{
 
     private String name;
     
-    private String floorUpDirection;
+    private int floorUpDirection;
 
-    private String floorDownDirection;
+    private int floorDownDirection;
 
-    private int totalPoints;
+    private double totalPoints;
 
+    @JsonIgnore
     private int index = -1;
 
     public CacheDto(String email, String name,
-                    String floorUpDirection, String floorDownDirection, int totalPoints) {
+                    int floorUpDirection, int floorDownDirection, double totalPoints) {
         this.email = email;
         this.name = name;
         this.floorUpDirection = floorUpDirection;
@@ -32,15 +35,15 @@ public class CacheDto implements Comparable<CacheDto>{
         return name;
     }
 
-    public String getFloorUpDirection() {
+    public int getFloorUpDirection() {
         return floorUpDirection;
     }
 
-    public String getFloorDownDirection() {
+    public int getFloorDownDirection() {
         return floorDownDirection;
     }
 
-    public int getTotalPoints() {
+    public double getTotalPoints() {
         return totalPoints;
     }
 
@@ -52,7 +55,7 @@ public class CacheDto implements Comparable<CacheDto>{
         this.index = index;
     }
 
-    public void setTotalPoints(int totalPoints) {
+    public void setTotalPoints(double totalPoints) {
         this.totalPoints = totalPoints;
     }
 

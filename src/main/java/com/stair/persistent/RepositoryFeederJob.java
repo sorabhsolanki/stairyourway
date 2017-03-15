@@ -42,7 +42,7 @@ public class RepositoryFeederJob implements Runnable {
                 double points = totalPointHelper.getTotalPoints(workoutDto.getFloorUpDirection(),
                         workoutDto.getFloorDownDirection());
 
-                //TODO: check if user has already any workout submitted already, then add the computed points
+                // check if user has already any workout submitted already, then add the computed points
                 // to the already submitted points.
                 Workout workoutFromDb = workoutRepository.getWorkoutForUser(workoutDto.getEmail());
                 if (workoutFromDb != null) {
@@ -53,10 +53,9 @@ public class RepositoryFeederJob implements Runnable {
                             + workoutFromDb.getFloorDownDirection());
                     workoutRepository.save(workoutFromDb);
                 } else {
+                    workout.setTotalPoints(points);
                     workoutRepository.save(workout);
                 }
-
-                // TODO: save or update the enity
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
