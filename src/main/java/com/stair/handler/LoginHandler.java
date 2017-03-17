@@ -1,6 +1,7 @@
 package com.stair.handler;
 
 import com.stair.dto.LoginDto;
+import com.stair.exception.GeneralException;
 import com.stair.persistent.entity.Login;
 import com.stair.persistent.repository.LoginRepository;
 import org.slf4j.Logger;
@@ -32,5 +33,14 @@ public class LoginHandler {
         HttpSession httpSession = request.getSession(false);
         LOG.info("session alive ", httpSession == null ?false : httpSession.getId());
         return httpSession == null ?false : true;
+    }
+
+    public void registerUser(LoginDto loginDto) throws GeneralException {
+        /*Login login = loginRepository.checkIfUserAlreadyRegistered(loginDto.getEmail());
+        if(login != null)
+            throw new GeneralException("User already exist");*/
+        Login loginObj = new Login(loginDto.getName(), loginDto.getEmail(),
+                loginDto.getPassword(), loginDto.getOrganization());
+        loginRepository.save(loginObj);
     }
 }

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stair.cache.WorkoutCache;
 import com.stair.persistent.CacheFeederJob;
 import com.stair.persistent.RepositoryFeederJob;
-import com.stair.persistent.repository.LoginRepository;
 import com.stair.persistent.repository.WorkoutRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 @EnableAutoConfiguration
 @EnableMongoRepositories
 @ComponentScan()
-public class StairYourWay {
+public class StairYourWay{
 
     private static final Logger LOG = LoggerFactory.getLogger(StairYourWay.class);
 
@@ -57,7 +56,7 @@ public class StairYourWay {
     public CacheFeederJob cacheFeederJob() {
         CacheFeederJob job = new CacheFeederJob(workoutRepository, workoutCache);
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
-        scheduledExecutorService.scheduleAtFixedRate(job, 0, 10, TimeUnit.SECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(job, 0, 600, TimeUnit.SECONDS);
         return job;
     }
 

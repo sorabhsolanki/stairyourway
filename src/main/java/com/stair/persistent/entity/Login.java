@@ -1,19 +1,23 @@
 package com.stair.persistent.entity;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "User")
 public class Login {
+
+    private String name;
 
     private String email;
 
     private String password;
 
-    public Login(String email, String password) {
+    private String organization;
+
+    public Login(String name, String email, String password, String organization) {
+        this.name = name;
         this.email = email;
         this.password = password;
+        this.organization = organization;
     }
 
     public String getEmail() {
@@ -22,5 +26,13 @@ public class Login {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public String getName() {
+        return name;
     }
 }

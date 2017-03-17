@@ -10,4 +10,7 @@ public interface LoginRepository extends MongoRepository<Login, String>{
 
     @Query("{$and: [{'email':?0},{'password':?1}]}")
     Login checkIfUserExist(String email, String password);
+
+    @Query("{'email':?0}")
+    Login checkIfUserAlreadyRegistered(String email);
 }
