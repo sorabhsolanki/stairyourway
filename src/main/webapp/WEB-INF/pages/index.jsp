@@ -26,6 +26,7 @@
     <script type="text/javascript" src="resources/js/jquery.js"></script>
         <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="resources/js/lightbox.min.js"></script>
+
         <script type="text/javascript" src="resources/js/wow.min.js"></script>
         <script type="text/javascript" src="resources/js/main.js"></script>
 
