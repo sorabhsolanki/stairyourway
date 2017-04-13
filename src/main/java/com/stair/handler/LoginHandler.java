@@ -36,9 +36,9 @@ public class LoginHandler {
     }
 
     public void registerUser(LoginDto loginDto) throws GeneralException {
-        /*Login login = loginRepository.checkIfUserAlreadyRegistered(loginDto.getEmail());
+        Login login = loginRepository.checkIfUserAlreadyRegistered(loginDto.getEmail());
         if(login != null)
-            throw new GeneralException("User already exist");*/
+            throw new GeneralException("User already exist");
         Login loginObj = new Login(loginDto.getName(), loginDto.getEmail(),
                 loginDto.getPassword(), loginDto.getOrganization());
         loginRepository.save(loginObj);

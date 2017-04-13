@@ -24,8 +24,8 @@ public class StairController {
     private LoginHandler loginHandler;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String hello(Model model, @RequestParam(value = "name", required = false, defaultValue = "World") String name){
-        model.addAttribute("name", name);
+    public String hello(Model model){
+        model.addAttribute("user", "Unknown");
         return "index";
     }
 
@@ -34,8 +34,20 @@ public class StairController {
         return "signup";
     }
 
+    @RequestMapping(value = "/signin", method = RequestMethod.GET)
+    public String signin(){
+        return "signin";
+    }
+
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "signup";
+    }
+
     @RequestMapping(value = "/dosignup", method = RequestMethod.POST)
-    public String doSignUp(HttpServletRequest request, HttpServletResponse response){
+    public String doSignUp(Model model, HttpServletRequest request, HttpServletResponse response){
         LOG.info("Email: " + request.getParameter("email"));
         LOG.info("Name: " + request.getParameter("username"));
         LOG.info("Password: " + request.getParameter("password"));
@@ -47,6 +59,7 @@ public class StairController {
         } catch (GeneralException e) {
             LOG.warn(e.getMessage());
         }
+        model.addAttribute("user", loginDto.getName());
         return "index";
     }
 }

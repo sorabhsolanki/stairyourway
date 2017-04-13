@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -29,13 +29,22 @@
 
         <script type="text/javascript" src="resources/js/wow.min.js"></script>
         <script type="text/javascript" src="resources/js/main.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script type='text/javascript'>
 	$(document).ready(function() {
 
 		$("#signup").click(function() {
-                $(location).attr('href', '${pageContext.request.contextPath}/signup')
+                $(location).attr('href', '${pageContext.request.contextPath}/signup');
             });
+
+        $("#logout").click(function() {
+               $(location).attr('href', '${pageContext.request.contextPath}/logout')
+        });
+
+        $("#signin").click(function() {
+                $(location).attr('href', '${pageContext.request.contextPath}/signin');
+        });
 
 	});
 </script>
@@ -63,16 +72,15 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="index.html">Home</a></li>
+                        <li class="active">${requestScope.user}</li>
                                           
                     </ul>
                 </div>
                 <div class="search">
                     <form role="form">
-                        <i class="fa fa-search"></i>
-                        <div class="field-toggle">
-                            <input type="text" class="search-form" autocomplete="off" placeholder="Search">
-                        </div>
+                       <c:if test="${requestScope.user != 'Unknown'}">
+                        <a href="#" id="logout">logout</a>
+                       </c:if>
                     </form>
                 </div>
             </div>
@@ -86,7 +94,8 @@
                 <div class="slide-text" id="slide-text">
                     <h1>Stair Your Way</h1>
                     <p>Stair climbing is a unique form of exercise that can have a powerful and positive impact on your health over time.</p>
-                    <a href="#" id="signup" class="btn btn-common">SIGN UP</a><a href="#" class="btn btn-common">SIGN IN</a>
+                    <a href="#" id="signup" class="btn btn-common">SIGN UP</a>
+                    <a href="#" id="signin" class="btn btn-common">SIGN IN</a>
                    <h1>Top 10 climbers of the day</h1>
                 </div>
 
