@@ -23,8 +23,18 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="resources/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="resources/images/ico/apple-touch-icon-57-precomposed.png">
 
+<script type="text/javascript" src="resources/js/jquery.js"></script>
+    <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="resources/js/lightbox.min.js"></script>
+    <script type="text/javascript" src="resources/js/wow.min.js"></script>
+    <script type="text/javascript" src="resources/js/jquery.countTo.js"></script>
+    <script type="text/javascript" src="resources/js/main.js"></script>
+
     <script type='text/javascript'>
     	$(document).ready(function() {
+
+            if("${requestScope.user}" == "unknown")
+                  alert("Either user name or password is incorrect!");
 
     		$("#submit").click(function() {
                      $("#myForm").submit();
@@ -44,7 +54,7 @@
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+@                        <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
 
@@ -88,7 +98,7 @@
         </div>
    </section>
     <!--/#page-breadcrumb-->
-<form action="dosignup" method="post" id="myForm">
+<form action="login" method="post" id="myForm">
     <section id="about-company" class="padding-top wow fadeInUp" data-wow-duration="400ms" data-wow-delay="400ms">
         <div class="container">
 <div class="row">
@@ -116,12 +126,7 @@
     
     <!--/#footer-->
 
-    <script type="text/javascript" src="resources/js/jquery.js"></script>
-    <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="resources/js/lightbox.min.js"></script>
-    <script type="text/javascript" src="resources/js/wow.min.js"></script>
-    <script type="text/javascript" src="resources/js/jquery.countTo.js"></script>
-    <script type="text/javascript" src="resources/js/main.js"></script>
+
    
 </body>
 </html>

@@ -61,13 +61,14 @@ public class StairConnector {
     }
 
     @RequestMapping(value = "/getTopLinks", method = RequestMethod.GET)
-    public ResponseEntity<List<CacheDto>> getTop10DailyWorkout() {
-        List<CacheDto> cacheDtos = workoutHandler.extractTop10DailyWorkout();
-        return new ResponseEntity(cacheDtos, HttpStatus.OK);
+    public String getTop10DailyWorkout() {
+        LOG.info("Get top 10 links !");
+        String html = workoutHandler.extractTop10DailyWorkout();
+        return html;
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public ResponseEntity login(@RequestBody @Valid LoginDto loginDto) throws GeneralException {
+    public ResponseEntity signUp(@RequestBody @Valid LoginDto loginDto) throws GeneralException {
         loginHandler.registerUser(loginDto);
         return new ResponseEntity(HttpStatus.OK);
     }

@@ -34,6 +34,8 @@
 <script type='text/javascript'>
 	$(document).ready(function() {
 
+
+
 		$("#signup").click(function() {
                 $(location).attr('href', '${pageContext.request.contextPath}/signup');
             });
@@ -45,6 +47,19 @@
         $("#signin").click(function() {
                 $(location).attr('href', '${pageContext.request.contextPath}/signin');
         });
+
+        $.ajax({url: "${pageContext.request.contextPath}/rest/getTopLinks",
+          async: false, success: function(result){
+        			 $('#services').html(result);
+        }});
+
+       $("#btn6U").click(function() {
+            alert("Do you want to submit 6 up floors !");
+       });
+
+
+
+
 
 	});
 </script>
@@ -113,84 +128,9 @@
     </section>
     <!--/#home-slider-->
 
-    <section id="services">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
-                    <div class="single-service">
-                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="resources/images/home/icon1.png" alt="">
-                        </div>
-                        <h2>tau</h2>
-                    </div>
- <div class="single-service">
-                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="resources/images/home/icon1.png" alt="">
-                        </div>
-                        <h2>tau</h2>
-                    </div>
- <div class="single-service">
-                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="resources/images/home/icon1.png" alt="">
-                        </div>
-                        <h2>tau</h2>
-                    </div>
- <div class="single-service">
-                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="resources/images/home/icon1.png" alt="">
-                        </div>
-                        <h2>tau</h2>
-                    </div>
+    <div id="services">
 
-
-                </div>
-                <div class="row">
-                <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
-                    <div class="single-service">
-                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="resources/images/home/icon1.png" alt="">
-                        </div>
-                        <h2>tau</h2>
-                    </div>
- <div class="single-service">
-                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="resources/images/home/icon1.png" alt="">
-                        </div>
-                        <h2>tau</h2>
-                    </div>
- <div class="single-service">
-                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="resources/images/home/icon1.png" alt="">
-                        </div>
-                        <h2>tau</h2>
-                    </div>
- <div class="single-service">
-                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="resources/images/home/icon1.png" alt="">
-                        </div>
-                        <h2>tau</h2>
-                    </div>
-                </div>
-                <div class="row">
-                <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
-                    <div class="single-service">
-                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="resources/images/home/icon1.png" alt="">
-                        </div>
-                        <h2>tau</h2>
-                    </div>
- <div class="single-service">
-                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
-                            <img src="resources/images/home/icon1.png" alt="">
-                        </div>
-                        <h2>tau</h2>
-                    </div>
-                </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
+    </div>
     <!--/#services-->
 
     
@@ -200,7 +140,7 @@
      <!--/#features-->
 
     <section id="clients">
-        <div class="container">
+        <div id="container" class="container">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="clients text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
@@ -212,19 +152,19 @@
 
                         <div class="col-xs-3 col-sm-2">
                             <a href="#"><img src="resources/images/home/number6.png" class="img-responsive" alt="">
-                        <P><a href="#" class="btn btn-common">Up stairs.</a></P></a>
+                        <P><a href="#" id = "btn6U" class="btn btn-common">Up stairs.</a></P></a>
                         </div>
                         <div class="col-xs-3 col-sm-2">
                             <a href="#"><img src="resources/images/home/number5.png" class="img-responsive" alt="">
-                           <P><a href="#" class="btn btn-common">Up stairs.</a></P></a>
+                           <P><a href="#" id = "btn5U" class="btn btn-common">Up stairs.</a></P></a>
                         </div>
                          <div class="col-xs-3 col-sm-2">
                             <a href="#"><img src="resources/images/home/number4.png" class="img-responsive" alt="">
-                            <P><a href="#" class="btn btn-common">Up stairs.</a></P></a>
+                            <P><a href="#" id = "btn4U" class="btn btn-common">Up stairs.</a></P></a>
                         </div>
 <div class="col-xs-3 col-sm-2">
                             <a href="#"><img src="resources/images/home/number3.png" class="img-responsive" alt="">
-                        <P><a href="#" class="btn btn-common">Up stairs.</a></P></a>
+                        <P><a href="#" id = "btn3U" class="btn btn-common">Up stairs.</a></P></a>
                         </div>
                         <div class="col-xs-3 col-sm-2">
                             <a href="#"><img src="resources/images/home/number2.png" class="img-responsive" alt="">
